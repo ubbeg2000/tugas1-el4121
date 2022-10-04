@@ -4,6 +4,7 @@
 #include "freertos/task.h"
 #include "../../fsm/rising_edge_fsm.h"
 #include "../../fsm/toggle_fsm.h"
+#include "../../fsm/debounce_fsm.h"
 
 // input di pin 18
 #define GPIO_INPUT_0 GPIO_NUM_19
@@ -19,24 +20,28 @@ void ReadButtonTask(void *pvParam)
 
     int toggle_fsm_state = TOGGLE_OFF_STATE;
     int rising_edge_fsm_state = LOW_STATE;
+    int debounce_fsm_state = IDLE_STATE;
 
+    int debounce_fsm_output = 0;
+    int debounce_counter = 0;
     int rising_edge_fsm_output = 0;
 
-    int input, p_input;
+    int input;
 
     while (1)
     {
         // debouncing
-        p_input = gpio_get_level(GPIO_INPUT_0);
-        vTaskDelay(10 / portTICK_PERIOD_MS);
-        input = p_input & gpio_get_level(GPIO_INPUT_0);
+        input = gpio_get_level(GPIO_INPUT_0);
+        debounce_fsm(&debounce_fsm_state, &debounce_counter, p_input, &debounce_fsm_output);
 
         // toggling
-        rising_edge_fsm(&rising_edge_fsm_state, input, &rising_edge_fsm_output);
+        rising_edge_fsm(&rising_edge_fsm_state, debounce_fsm_output, &rising_edge_fsm_output);
         toggle_fsm(&toggle_fsm_state, rising_edge_fsm_output, &led_state);
 
         // led control
         gpio_set_level(GPIO_OUTPUT_0, led_state);
+
+        vTaskDelay(1 / portTICK_PERIOD_MS);
     }
 }
 
