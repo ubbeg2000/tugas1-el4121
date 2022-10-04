@@ -41,7 +41,7 @@ void ReadButtonTask(void *pvParam)
         // led control
         gpio_set_level(GPIO_OUTPUT_0, led_state);
 
-        vTaskDelay(1 / portTICK_PERIOD_MS);
+        vTaskDelay(10 / portTICK_PERIOD_MS);
     }
 }
 
