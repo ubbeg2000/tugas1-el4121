@@ -1,20 +1,28 @@
-test-rising-edge:
-	gcc -o test-rising-edge ./test/rising_edge_fsm_test.c ./fsm/rising_edge_fsm.c
+debounce-fsm-simulation:
+	gcc -o debounce-fsm-simulation ./simulation/debounce_fsm_simulation.c ./fsm/debounce_fsm.c
 
-test-toggle:
-	gcc -o test-toggle ./test/toggle_fsm_test.c ./fsm/toggle_fsm.c
+debounce-fsm-test:
+	gcc -o debounce-fsm-test ./test/debounce_fsm_test.c ./fsm/debounce_fsm.c
 
-simulate-rising-edge:
-	gcc -o simulate-rising-edge ./simulation/rising_edge_fsm_simulation.c ./fsm/rising_edge_fsm.c
+rising-edge-fsm-simulation:
+	gcc -o rising-edge-fsm-simulation ./simulation/rising_edge_fsm_simulation.c ./fsm/rising_edge_fsm.c
 
-simulate-toggle:
-	gcc -o simulate-toggle ./simulation/toggle_fsm_simulation.c ./fsm/toggle_fsm.c
+rising-edge-fsm-test:
+	gcc -o rising-edge-fsm-test ./test/rising_edge_fsm_test.c ./fsm/rising_edge_fsm.c
+
+toggle-fsm-simulation:
+	gcc -o toggle-fsm-simulation ./simulation/toggle_fsm_simulation.c ./fsm/toggle_fsm.c
+
+toggle-fsm-test:
+	gcc -o toggle-fsm-test ./test/toggle_fsm_test.c ./fsm/toggle_fsm.c
 
 all: 
-	$(MAKE) test-toggle
-	$(MAKE) test-rising-edge
-	$(MAKE) simulate-toggle
-	$(MAKE) simulate-rising-edge
+	$(MAKE) debounce-fsm-simulation
+	$(MAKE) debounce-fsm-test
+	$(MAKE) toggle-fsm-test
+	$(MAKE) rising-edge-fsm-test
+	$(MAKE) toggle-fsm-simulation
+	$(MAKE) rising-edge-fsm-simulation
 
 clean:
 	del *.exe

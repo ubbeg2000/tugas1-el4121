@@ -32,7 +32,7 @@ void ReadButtonTask(void *pvParam)
     {
         // debouncing
         input = gpio_get_level(GPIO_INPUT_0);
-        debounce_fsm(&debounce_fsm_state, &debounce_counter, p_input, &debounce_fsm_output);
+        debounce_fsm(&debounce_fsm_state, &debounce_counter, input, &debounce_fsm_output);
 
         // toggling
         rising_edge_fsm(&rising_edge_fsm_state, debounce_fsm_output, &rising_edge_fsm_output);
