@@ -16,6 +16,9 @@ toggle-fsm-simulation:
 toggle-fsm-test:
 	gcc -o toggle-fsm-test ./test/toggle_fsm_test.c ./fsm/toggle_fsm.c
 
+full-fsm-simulation:
+	gcc -o full-fsm-simulation ./simulation/full_fsm_simulation.c ./fsm/toggle_fsm.c ./fsm/rising_edge_fsm.c ./fsm/debounce_fsm.c
+
 all: 
 	$(MAKE) debounce-fsm-simulation
 	$(MAKE) debounce-fsm-test
